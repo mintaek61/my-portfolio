@@ -1,6 +1,6 @@
 ---
-name: 작업 템플릿
-about: 개발 작업을 위한 템플릿
+name: Feature request
+about: Suggest an idea for this project
 title: '[TASK] '
 labels: task
 assignees: ''
