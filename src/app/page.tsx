@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { Header } from '@/components/Header';
+import { Background } from '@/components/Background';
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState('home');
@@ -12,6 +14,10 @@ export default function Home() {
       element.scrollIntoView({ behavior: 'smooth' });
       setActiveSection(sectionId);
     }
+  };
+
+  const handleSectionChange = (sectionId: string) => {
+    setActiveSection(sectionId);
   };
 
   useEffect(() => {
@@ -37,94 +43,11 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* 피그잼 보드 스타일 배경 */}
-      <div className="fixed inset-0 pointer-events-none">
-        {/* 점 패턴 */}
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `radial-gradient(circle, #8b5cf6 1px, transparent 1px)`,
-            backgroundSize: '24px 24px'
-          }}></div>
-        </div>
-        
-        {/* 물결선 그래픽 */}
-        <div className="absolute top-20 left-10 w-40 h-40 opacity-30">
-          <svg viewBox="0 0 100 100" className="w-full h-full">
-            <path d="M10,50 Q30,20 50,50 T90,50" stroke="#8b5cf6" strokeWidth="2" fill="none" />
-            <path d="M10,60 Q30,30 50,60 T90,60" stroke="#8b5cf6" strokeWidth="1" fill="none" />
-          </svg>
-        </div>
-        
-        {/* 추가 장식 요소들 */}
-        <div className="absolute top-32 right-20 w-24 h-24 bg-purple-200 rounded-full opacity-40"></div>
-        <div className="absolute bottom-40 left-20 w-16 h-16 bg-indigo-200 rounded-full opacity-50"></div>
-        <div className="absolute top-1/2 right-1/4 w-8 h-8 bg-pink-200 rounded-full opacity-60"></div>
-      </div>
-
-      {/* 헤더 */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            {/* 로고 */}
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-indigo-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">R</span>
-              </div>
-              <span className="text-2xl font-bold text-gray-900">RPX</span>
-            </div>
-
-            {/* 네비게이션 메뉴 */}
-            <nav className="hidden md:flex space-x-8">
-              <button
-                onClick={() => scrollToSection('home')}
-                className={`text-sm font-medium transition-colors ${
-                  activeSection === 'home' ? 'text-purple-900' : 'text-gray-700 hover:text-gray-900'
-                }`}
-              >
-                Home
-              </button>
-              <button
-                onClick={() => scrollToSection('about')}
-                className={`text-sm font-medium transition-colors ${
-                  activeSection === 'about' ? 'text-purple-900' : 'text-gray-700 hover:text-gray-900'
-                }`}
-              >
-                About
-              </button>
-              <button
-                onClick={() => scrollToSection('services')}
-                className={`text-sm font-medium transition-colors ${
-                  activeSection === 'services' ? 'text-purple-900' : 'text-gray-700 hover:text-gray-900'
-                }`}
-              >
-                Service
-              </button>
-              <button
-                onClick={() => scrollToSection('portfolio')}
-                className={`text-sm font-medium transition-colors ${
-                  activeSection === 'portfolio' ? 'text-purple-900' : 'text-gray-700 hover:text-gray-900'
-                }`}
-              >
-                Project
-              </button>
-              <button
-                onClick={() => scrollToSection('blog')}
-                className={`text-sm font-medium transition-colors ${
-                  activeSection === 'blog' ? 'text-purple-900' : 'text-gray-700 hover:text-gray-900'
-                }`}
-              >
-                Blog
-              </button>
-              <button
-                onClick={() => scrollToSection('contact')}
-                className="bg-gray-900 text-white px-6 py-2 rounded-lg font-semibold hover:bg-gray-800 transition-colors"
-              >
-                Contact Me
-              </button>
-            </nav>
-          </div>
-        </div>
-      </header>
+      {/* 배경 컴포넌트 */}
+      <Background />
+      
+      {/* 헤더 컴포넌트 */}
+      <Header activeSection={activeSection} onSectionChange={handleSectionChange} />
 
       {/* 메인 콘텐츠 */}
       <main className="pt-16">

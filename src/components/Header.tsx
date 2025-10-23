@@ -1,41 +1,63 @@
 'use client';
 
-import Link from 'next/link';
 import { useState } from 'react';
 
-export function Header() {
+interface HeaderProps {
+  activeSection: string;
+  onSectionChange: (section: string) => void;
+}
+
+export function Header({ activeSection, onSectionChange }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      onSectionChange(sectionId);
+      setIsMenuOpen(false); // 모바일 메뉴 닫기
+    }
+  };
+
   const navigation = [
-    { name: '홈', href: '/' },
-    { name: '포트폴리오', href: '/portfolio' },
-    { name: '블로그', href: '/blog' },
-    { name: '소개', href: '/about' },
+    { name: 'Home', id: 'home' },
+    { name: 'About', id: 'about' },
+    { name: 'Service', id: 'services' },
+    { name: 'Project', id: 'portfolio' },
+    { name: 'Blog', id: 'blog' },
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md shadow-lg border-b border-gray-200/50">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* 로고 */}
-          <div className="flex-shrink-0">
-            <Link href="/" className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent hover:scale-105 transition-transform duration-300">
-              포트폴리오
-            </Link>
+          <div className="flex items-center space-x-3">
+            <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-indigo-600 rounded-lg flex items-center justify-center">
+              <span className="text-white font-bold text-lg">R</span>
+            </div>
+            <span className="text-2xl font-bold text-gray-900">RPX</span>
           </div>
 
           {/* 데스크톱 네비게이션 */}
-          <nav className="hidden md:flex space-x-2">
+          <nav className="hidden md:flex space-x-8">
             {navigation.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className="relative px-4 py-2 text-gray-700 hover:text-gray-900 rounded-lg text-sm font-medium transition-all duration-300 hover:bg-gray-100 group"
+              <button
+                key={item.id}
+                onClick={() => scrollToSection(item.id)}
+                className={`text-sm font-medium transition-colors ${
+                  activeSection === item.id ? 'text-purple-900' : 'text-gray-700 hover:text-gray-900'
+                }`}
               >
                 {item.name}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-600 to-pink-600 group-hover:w-full transition-all duration-300"></span>
-              </Link>
+              </button>
             ))}
+            <button
+              onClick={() => scrollToSection('contact')}
+              className="bg-gray-900 text-white px-6 py-2 rounded-lg font-semibold hover:bg-gray-800 transition-colors"
+            >
+              Contact Me
+            </button>
           </nav>
 
           {/* 모바일 메뉴 버튼 */}
@@ -76,15 +98,22 @@ export function Header() {
           <div className="md:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
               {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className="text-gray-700 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium"
-                  onClick={() => setIsMenuOpen(false)}
+                <button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className={`block w-full text-left px-3 py-2 rounded-md text-base font-medium transition-colors ${
+                    activeSection === item.id ? 'text-purple-900 bg-purple-50' : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
+                  }`}
                 >
                   {item.name}
-                </Link>
+                </button>
               ))}
+              <button
+                onClick={() => scrollToSection('contact')}
+                className="w-full bg-gray-900 text-white px-3 py-2 rounded-md text-base font-medium hover:bg-gray-800 transition-colors mt-2"
+              >
+                Contact Me
+              </button>
             </div>
           </div>
         )}

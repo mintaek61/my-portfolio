@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "포트폴리오 | 개발자 포트폴리오",
+  title: "오민택 포트폴리오 | Frontend Developer",
   description: "개발자 포트폴리오 및 블로그 사이트입니다.",
 };
 
