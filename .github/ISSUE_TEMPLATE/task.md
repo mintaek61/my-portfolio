@@ -1,8 +1,7 @@
 ---
 name: Feature request
 about: Suggest an idea for this project
-title: '[TASK] '
-labels: task
+title: ''
 assignees: ''
 ---
 
@@ -10,9 +9,10 @@ assignees: ''
 > 추가하려는 기능에 대해 간결하게 설명해주세요
 
 ## 작업 상세 내용
-- [ ] .tsx 파일변경 후 prop interface, type 지정하기 (컨벤션은 노션확인)
-- [ ] import 쓸데 없는 것이나 사용하지 않는 코드 지우기 
+- [ ] 사용하지 않는 import 부분과 코드 및 주석 지우기 
 - [ ] console 등 테스트 했던 코드 지우기
+- [ ] pr 올리기 직전에 오류 다시 한번 확인하기
+
 - [ ] Todo
 - [ ] Todo
 
